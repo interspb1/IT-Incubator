@@ -66,6 +66,22 @@ const videos: VideoType[] = [
       }
 ];
 
+app.get('/videos', (req: Request, res: Response) => {
+    res.send(videos); 
+});
+
+app.get('/videos/:id', (req: RequestWithParams<Params>, res: Response)  => {
+    const id = +req.params.id;
+
+    const video = videos.find((video) => video.id === id);
+
+    if(video){
+       res.send(video);
+    } else {
+       res.sendStatus(404);
+    }
+}); 
+
 app.post('/videos/', (req: RequestWithBody<CreateBody>, res: Response)  => {
     let errors: ErrorType= {
         errorsMessages: []
@@ -117,21 +133,6 @@ app.post('/videos/', (req: RequestWithBody<CreateBody>, res: Response)  => {
 
     res.status(201).send(newVideo);
 });
-
-app.get('/videos', (req: Request, res: Response) => {
-    res.send(videos); 
-});
-
-app.get('/videos/:id', (req: RequestWithParams<Params>, res: Response)  => {
-    const id = +req.params.id;
-
-    const video = videos.find((video) => video.id === id);
-
-    if(!video){
-        res.sendStatus(404);
-    }
-    res.send(video);
-}); 
 
 app.put('/videos/:id',(req: RequestWithBodyAndParams<Params, UpdateVideoDto>, res: Response) =>{
     const id = +req.params.id;
@@ -216,7 +217,7 @@ app.delete('/videos/:id', (req: RequestWithParams<Params>, res: Response)  => {
     }
 }); 
 
-app.delete('/videos/', (req: Request, res: Response)  => {
+app.delete('/testing/all-data', (req: Request, res: Response)  => {
 
     videos.length = 0;
 
