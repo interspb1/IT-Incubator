@@ -66,21 +66,6 @@ const videos: VideoType[] = [
       }
 ];
 
-app.get('/videos', (req: Request, res: Response) => {
-    res.send(videos); 
-});
-
-app.get('/videos/:id', (req: RequestWithParams<Params>, res: Response)  => {
-    const id = +req.params.id;
-
-    const video = videos.find((video) => video.id === id);
-
-    if(!video){
-        res.sendStatus(404);
-    }
-    res.send(video);
-}); 
-
 app.post('/videos/', (req: RequestWithBody<CreateBody>, res: Response)  => {
     let errors: ErrorType= {
         errorsMessages: []
@@ -133,6 +118,20 @@ app.post('/videos/', (req: RequestWithBody<CreateBody>, res: Response)  => {
     res.status(201).send(newVideo);
 });
 
+app.get('/videos', (req: Request, res: Response) => {
+    res.send(videos); 
+});
+
+app.get('/videos/:id', (req: RequestWithParams<Params>, res: Response)  => {
+    const id = +req.params.id;
+
+    const video = videos.find((video) => video.id === id);
+
+    if(!video){
+        res.sendStatus(404);
+    }
+    res.send(video);
+}); 
 
 app.put('/videos/:id',(req: RequestWithBodyAndParams<Params, UpdateVideoDto>, res: Response) =>{
     const id = +req.params.id;
