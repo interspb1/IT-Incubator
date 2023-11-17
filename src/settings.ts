@@ -80,6 +80,7 @@ app.get('/videos/:id', (req: RequestWithParams<Params>, res: Response)  => {
     } else {
        res.sendStatus(404);
     }
+    
 }); 
 
 app.post('/videos/', (req: RequestWithBody<CreateBody>, res: Response)  => {
