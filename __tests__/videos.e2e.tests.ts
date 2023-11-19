@@ -92,7 +92,7 @@ describe('/videos',() => {
         const res = await request(app).get('/videos/')
         expect(res.body[0])
     });
-
+/*
     it('it should DELETE product by correct ID, auth', async () => {
         await request(app)
             .delete('/testing/all-data')
@@ -101,6 +101,6 @@ describe('/videos',() => {
 
         const res = await request(app).get('/videos')
         expect(res.body.length).toBe(0)
-    });
+    });*/
 
 });

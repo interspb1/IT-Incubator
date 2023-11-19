@@ -217,10 +217,10 @@ app.delete('/videos/:id', (req: RequestWithParams<Params>, res: Response)  => {
         res.sendStatus(204);
     }
 }); 
-
+/*
 app.delete('/testing/all-data', (req: Request, res: Response)  => {
 
     videos.length = 0;
 
     res.sendStatus(204);
-}); 
+}); */
