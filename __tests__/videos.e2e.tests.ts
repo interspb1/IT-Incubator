@@ -1,7 +1,7 @@
 import request from 'supertest';
 import { app } from '../src/settings';
 
-describe('/videos/',() => {
+describe('/videos',() => {
     
     beforeAll(async() =>{
         await request(app).delete('/__tests__/data')
@@ -9,7 +9,7 @@ describe('/videos/',() => {
 
     it('it should not creates the video with incorrect data (no title, no author)', async () => {
         await request(app)
-            .post('/videos/')
+            .post('/videos')
             .send({ title: '', author: ''})
             .expect(400, {
                 errorsMessages: [
@@ -19,13 +19,13 @@ describe('/videos/',() => {
             })
 
         await request(app)
-            .get('/videos/')
+            .get('/videos')
             .expect(200)
     });
 
     it('it should creates the video with correct data', async () => {
         const createResponse = await request(app) 
-            .post('/videos/')
+            .post('/videos')
             .send({ title: 'The First HW', author: 'AP'})
             .expect(201)
         
@@ -46,7 +46,7 @@ describe('/videos/',() => {
 
     it ('it should returns infomation about all videos', async() => {
         await request(app)
-            .get('/videos/')
+            .get('/videos')
             .expect(200)
     });
 
@@ -99,7 +99,7 @@ describe('/videos/',() => {
             .set('authorization', 'Basic YWRtaW46cXdlcnR5')
             .expect(204)
 
-        const res = await request(app).get('/videos/')
+        const res = await request(app).get('/videos')
         expect(res.body.length).toBe(0)
     });
 

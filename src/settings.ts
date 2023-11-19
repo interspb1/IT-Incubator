@@ -83,7 +83,7 @@ app.get('/videos/:id', (req: RequestWithParams<Params>, res: Response)  => {
     
 }); 
 
-app.post('/videos/', (req: RequestWithBody<CreateBody>, res: Response)  => {
+app.post('/videos', (req: RequestWithBody<CreateBody>, res: Response)  => {
     let errors: ErrorType= {
         errorsMessages: []
     };
