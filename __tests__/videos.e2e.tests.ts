@@ -95,9 +95,9 @@ describe('/videos/',() => {
 
     it('it should DELETE product by correct ID, auth', async () => {
         await request(app)
-            .delete('/videos/')
+            .delete('/testing/all-data')
             .set('authorization', 'Basic YWRtaW46cXdlcnR5')
-            .expect(404)
+            .expect(204)
 
         const res = await request(app).get('/videos/')
         expect(res.body.length).toBe(0)

@@ -218,9 +218,9 @@ app.delete('/videos/:id', (req: RequestWithParams<Params>, res: Response)  => {
     }
 }); 
 
-app.delete('/videos/', (req: Request, res: Response)  => {
+app.delete('/testing/all-data', (req: Request, res: Response)  => {
 
     videos.length = 0;
 
-    res.sendStatus(404);
+    res.sendStatus(204);
 }); 
