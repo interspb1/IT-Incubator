@@ -163,7 +163,7 @@ app.put('/videos/:id',(req: RequestWithBodyAndParams<Params, UpdateVideoDto>, re
         availableResolutions = [];
     };
 
-    if (typeof canBeDownloaded != 'boolean' ){
+    if (!canBeDownloaded || typeof canBeDownloaded !== 'boolean'){
         errors.errorsMessages.push({message: 'Invalid canBeDownloaded', field: 'canBeDownloaded'});
     };
 

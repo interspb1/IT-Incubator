@@ -106,7 +106,7 @@ exports.app.put('/videos/:id', (req, res) => {
         availableResolutions = [];
     }
     ;
-    if (typeof canBeDownloaded != 'boolean') {
+    if (!canBeDownloaded || typeof canBeDownloaded !== 'boolean') {
         errors.errorsMessages.push({ message: 'Invalid canBeDownloaded', field: 'canBeDownloaded' });
     }
     ;
