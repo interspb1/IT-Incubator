@@ -69,7 +69,7 @@ exports.app.post('/videos', (req, res) => {
     publicationDate.setDate(createdAt.getDate() + 1);
     const newVideo = {
         id: +(new Date()),
-        canBeDownloaded: false,
+        canBeDownloaded: true,
         minAgeRestriction: null,
         createdAt: createdAt.toISOString(),
         publicationDate: publicationDate.toISOString(),
@@ -106,8 +106,8 @@ exports.app.put('/videos/:id', (req, res) => {
         availableResolutions = [];
     }
     ;
-    if (typeof canBeDownloaded == 'undefined') {
-        canBeDownloaded = false;
+    if (typeof canBeDownloaded != 'boolean') {
+        errors.errorsMessages.push({ message: 'Invalid canBeDownloaded', field: 'canBeDownloaded' });
     }
     ;
     if (typeof minAgeRestriction != 'undefined' && typeof minAgeRestriction == 'number') {
