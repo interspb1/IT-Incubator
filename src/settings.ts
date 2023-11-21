@@ -121,7 +121,7 @@ app.post('/videos', (req: RequestWithBody<CreateBody>, res: Response) => {
 
     const newVideo = {
         id: +(new Date()),
-        canBeDownloaded: false,
+        canBeDownloaded: true,
         minAgeRestriction: null,
         createdAt: createdAt.toISOString(),
         publicationDate: publicationDate.toISOString(),
@@ -163,8 +163,8 @@ app.put('/videos/:id',(req: RequestWithBodyAndParams<Params, UpdateVideoDto>, re
         availableResolutions = [];
     };
 
-    if (typeof canBeDownloaded == 'undefined'){
-        canBeDownloaded = false;
+    if (typeof canBeDownloaded != 'boolean' ){
+        errors.errorsMessages.push({message: 'Invalid canBeDownloaded', field: 'canBeDownloaded'});
     };
 
     if (typeof minAgeRestriction != 'undefined' && typeof minAgeRestriction == 'number'){

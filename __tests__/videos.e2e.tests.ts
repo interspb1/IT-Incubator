@@ -39,7 +39,7 @@ describe('/videos',() => {
             minAgeRestriction: null,
             createdAt: expect.any(String),
             publicationDate: expect.any(String),
-            canBeDownloaded: false,
+            canBeDownloaded: true,
         })
 
     });
@@ -60,7 +60,7 @@ describe('/videos',() => {
         await request(app)
             .put('/videos/1111')
             .send({ title: 'title', author: 'title' })
-            .expect(404)
+            .expect(400)
 
         const res = await request(app).get('/videos/')
         expect(res.body[0])
@@ -76,7 +76,7 @@ describe('/videos',() => {
                 minAgeRestriction: null,
                 createdAt: expect.any(String),
                 publicationDate: expect.any(String),
-                canBeDownloaded: false,
+                canBeDownloaded: true,
             })
             .expect(204)
 
