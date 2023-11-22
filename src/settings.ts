@@ -169,8 +169,8 @@ app.put('/videos/:id',(req: RequestWithBodyAndParams<Params, UpdateVideoDto>, re
 
     if (typeof minAgeRestriction != 'undefined' && typeof minAgeRestriction == 'number'){
          minAgeRestriction < 1 || minAgeRestriction > 18 && errors.errorsMessages.push({
-            message: 'Invalid minAgeRestrictio', 
-            field: 'minAgeRestrictio'
+            message: 'Invalid minAgeRestriction', 
+            field: 'minAgeRestriction'
         });
     } else {
         minAgeRestriction = null;
