@@ -110,10 +110,14 @@ exports.app.put('/videos/:id', (req, res) => {
         errors.errorsMessages.push({ message: 'Invalid canBeDownloaded', field: 'canBeDownloaded' });
     }
     ;
+    if (!publicationDate || typeof publicationDate === 'number') {
+        errors.errorsMessages.push({ message: 'publicationDate', field: 'publicationDate' });
+    }
+    ;
     if (typeof minAgeRestriction != 'undefined' && typeof minAgeRestriction == 'number') {
         minAgeRestriction < 1 || minAgeRestriction > 18 && errors.errorsMessages.push({
-            message: 'Invalid minAgeRestrictio',
-            field: 'minAgeRestrictio'
+            message: 'Invalid minAgeRestriction',
+            field: 'minAgeRestriction'
         });
     }
     else {
