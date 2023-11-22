@@ -39,7 +39,7 @@ describe('/videos',() => {
             minAgeRestriction: null,
             createdAt: expect.any(String),
             publicationDate: expect.any(String),
-            canBeDownloaded: true,
+            canBeDownloaded: false,
         })
 
     });
