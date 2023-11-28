@@ -1,7 +1,11 @@
 import { VideoType } from "../types/video/output";
+import { BlogType } from "../types/blog/output";
+import { PostType } from "../types/post/output";
 
 type DBType = {
-    videos: VideoType[]
+    videos: VideoType[],
+    blogs: BlogType[],
+    posts: PostType[]
 };
 
 export const db = {
@@ -16,5 +20,21 @@ export const db = {
         availableResolutions: [
             'P144'
         ]
+      }],
+
+    blogs: [{
+        id: "string",
+        name: "string",
+        description: "string",
+        websiteUrl: "string"
+      }],
+
+    posts:  [{
+        id: "string",
+        title: "string",
+        shortDescription: "string",
+        content: "string",
+        blogId: "string",
+        blogName: "string"
       }]
 };

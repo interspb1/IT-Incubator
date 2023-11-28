@@ -7,9 +7,9 @@ export const app = express();
 
 app.use(express.json());
 
-app.use('/videos',videoRoute);
+app.use('/videos', videoRoute);
 app.use('/blogs', blogRoute);
-app.use('/posts',postRoute);
+app.use('/posts', postRoute);
 
 
 

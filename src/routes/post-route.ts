@@ -1,25 +1,32 @@
 import { Request, Response, Router } from "express";
+import { PostRepository } from "../repositories/post-repository";
+import { RequestWithParams } from "../types/common";
+import { PostParams } from "../types/post/input";
+import { authMiddleware } from "../middlewares/auth/auth-middleware";
+import { postPostValidation } from "../validators/posts-validator";
 
 export const postRoute = Router();
 
-postRoute.get('/videos', (req: Request, res: Response) => {
-    res.send(videos);
+postRoute.get('/', (req: Request, res: Response) => {
+    const posts = PostRepository.getAllPosts();
+
+    res.send(posts);
 });
 
-postRoute.get('/videos/:id', (req: RequestWithParams<Params>, res: Response) =>{
-    const id = +req.params.id;
+postRoute.get('/:id', authMiddleware, (req: RequestWithParams<PostParams>, res: Response) =>{
+    const id = req.params.id;
 
-    const video = videos.find((video) => video.id == id);
+    const post = PostRepository.getPostById(id)
 
-    if(!video){
+    if(!post){
         res.sendStatus(404);
         return;
      } 
     
-     res.send(video);
+     res.send(post);
 });
 
-postRoute.post('/videos', (req: RequestWithBody<CreateBody>, res: Response) => {
+postRoute.post('/videos', authMiddleware, postPostValidation(), (req: RequestWithBody<CreateBody>, res: Response) => {
     let errors: ErrorType= {
         errorsMessages: []
     };

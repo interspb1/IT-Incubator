@@ -1,25 +1,32 @@
 import { Request, Response, Router } from "express";
+import { BlogRepository } from "../repositories/blog-repository";
+import { RequestWithParams } from "../types/common";
+import { BlogParams } from "../types/blog/input";
+import { authMiddleware } from "../middlewares/auth/auth-middleware";
+import { blogPostValidation } from "../validators/blogs-validator";
 
 export const blogRoute = Router();
 
-blogRoute.get('/blogs', (req: Request, res: Response) => {
-    res.send(videos);
+blogRoute.get('/', (req: Request, res: Response) => {
+    const blogs = BlogRepository.getAllBlogs();
+
+    res.send(blogs);
 });
 
-blogRoute.get('/blogs/:id', (req: RequestWithParams<Params>, res: Response) =>{
-    const id = +req.params.id;
+blogRoute.get('/:id', authMiddleware, (req: RequestWithParams<BlogParams>, res: Response) =>{
+    const id = req.params.id;
 
-    const video = videos.find((video) => video.id == id);
+    const blog = BlogRepository.getBlogById(id)
 
-    if(!video){
+    if(!blog){
         res.sendStatus(404);
         return;
      } 
     
-     res.send(video);
+     res.send(blog);
 });
 
-blogRoute.post('/blogs', (req: RequestWithBody<CreateBody>, res: Response) => {
+blogRoute.post('/blogs', authMiddleware, blogPostValidation(), (req: RequestWithBody<CreateBody>, res: Response) => {
     let errors: ErrorType= {
         errorsMessages: []
     };
