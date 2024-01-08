@@ -1,7 +1,7 @@
 import { Request, Response, Router } from "express";
 import { BlogRepository } from "../repositories/blog-repository";
-import { RequestWithParams } from "../types/common";
-import { BlogParams } from "../types/blog/input";
+import { RequestWithParams, RequestWithBody, RequestWithBodyAndParams, ErrorsMessages, ErrorType } from "../types/common";
+import { BlogParams, CreateBlog, UpdateBlog } from "../types/blog/input";
 import { authMiddleware } from "../middlewares/auth/auth-middleware";
 import { blogPostValidation } from "../validators/blogs-validator";
 
@@ -26,14 +26,14 @@ blogRoute.get('/:id', authMiddleware, (req: RequestWithParams<BlogParams>, res: 
      res.send(blog);
 });
 
-blogRoute.post('/blogs', authMiddleware, blogPostValidation(), (req: RequestWithBody<CreateBody>, res: Response) => {
+blogRoute.post('/', authMiddleware, blogPostValidation(), (req: RequestWithBody<CreateBlog>, res: Response) => {
     let errors: ErrorType= {
         errorsMessages: []
     };
 
-    let{title, author, availableResolutions} = req.body;
+    let{name, description, websiteUrl} = req.body;
 
-    if (!title || title.trim().length < 1 || title.trim().length > 40){
+    if (!name || title.trim().length < 1 || title.trim().length > 40){
         errors.errorsMessages.push({message: 'Invalid title', field: 'title'})
     };
 
@@ -78,7 +78,7 @@ blogRoute.post('/blogs', authMiddleware, blogPostValidation(), (req: RequestWith
     res.status(201).send(newVideo);
 });
 
-blogRoute.put('/blogs/:id',(req: RequestWithBodyAndParams<Params, UpdateVideoDto>, res: Response) => {
+blogRoute.put('/:id',(req: RequestWithBodyAndParams<BlogParams, UpdateBlog>, res: Response) => {
     const id = +req.params.id;
 
     let errors: ErrorType= {
@@ -151,7 +151,7 @@ blogRoute.put('/blogs/:id',(req: RequestWithBodyAndParams<Params, UpdateVideoDto
     res.sendStatus(204);
 });
 
-blogRoute.delete('/blogs/:id', (req: RequestWithParams<Params>, res: Response)  => {
+blogRoute.delete('/:id', (req: RequestWithParams<BlogParams>, res: Response)  => {
     for (let i=0; i < videos.length; i++){
         if(videos[i].id === +req.params.id){
             videos.splice(i,1);

@@ -1,7 +1,7 @@
 import { Request, Response, Router } from "express";
 import { PostRepository } from "../repositories/post-repository";
-import { RequestWithParams } from "../types/common";
-import { PostParams } from "../types/post/input";
+import { RequestWithParams, RequestWithBody, RequestWithBodyAndParams, ErrorsMessages, ErrorType } from "../types/common";
+import { PostParams, CreatePost, UpdatePost } from "../types/post/input";
 import { authMiddleware } from "../middlewares/auth/auth-middleware";
 import { postPostValidation } from "../validators/posts-validator";
 
@@ -26,7 +26,7 @@ postRoute.get('/:id', authMiddleware, (req: RequestWithParams<PostParams>, res: 
      res.send(post);
 });
 
-postRoute.post('/videos', authMiddleware, postPostValidation(), (req: RequestWithBody<CreateBody>, res: Response) => {
+postRoute.post('/', authMiddleware, postPostValidation(), (req: RequestWithBody<CreatePost>, res: Response) => {
     let errors: ErrorType= {
         errorsMessages: []
     };
@@ -78,7 +78,7 @@ postRoute.post('/videos', authMiddleware, postPostValidation(), (req: RequestWit
     res.status(201).send(newVideo);
 });
 
-postRoute.put('/videos/:id',(req: RequestWithBodyAndParams<Params, UpdateVideoDto>, res: Response) => {
+postRoute.put('/:id',(req: RequestWithBodyAndParams<PostParams, UpdatePost>, res: Response) => {
     const id = +req.params.id;
 
     let errors: ErrorType= {
@@ -151,7 +151,7 @@ postRoute.put('/videos/:id',(req: RequestWithBodyAndParams<Params, UpdateVideoDt
     res.sendStatus(204);
 });
 
-postRoute.delete('/videos/:id', (req: RequestWithParams<Params>, res: Response)  => {
+postRoute.delete('/:id', (req: RequestWithParams<PostParams>, res: Response)  => {
     for (let i=0; i < videos.length; i++){
         if(videos[i].id === +req.params.id){
             videos.splice(i,1);
